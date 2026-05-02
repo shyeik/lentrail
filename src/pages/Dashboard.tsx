@@ -634,7 +634,7 @@ export default function Dashboard() {
   } = useQuery({
     queryKey: ["dashboard-v3"],
     queryFn: async () => {
-      const clientsRes = await axios.get(`${BACKEND_URL}/api/clients`, {
+      const clientsRes = await axios.get(`${BACKEND_URL}api/clients`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const clients = clientsRes.data as Client[];
@@ -642,7 +642,7 @@ export default function Dashboard() {
       return Promise.all(
         clients.map(async (client) => {
           const txRes = await axios.get(
-            `${BACKEND_URL}/api/transactions/${client._id}`,
+            `${BACKEND_URL}api/transactions/${client._id}`,
             {
               headers: { Authorization: `Bearer ${token}` },
             },

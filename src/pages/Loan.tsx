@@ -156,7 +156,7 @@ export default function Loan() {
   const { data, isLoading, isError } = useQuery({
     queryKey: ["loan-eligible-clients"],
     queryFn: async () => {
-      const clientsRes = await axios.get(`${BACKEND_URL}/api/clients`, {
+      const clientsRes = await axios.get(`${BACKEND_URL}api/clients`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -165,7 +165,7 @@ export default function Loan() {
       const result = await Promise.all(
         clients.map(async (client) => {
           const txRes = await axios.get(
-            `${BACKEND_URL}/api/transactions/${client._id}`,
+            `${BACKEND_URL}api/transactions/${client._id}`,
             {
               headers: { Authorization: `Bearer ${token}` },
             },

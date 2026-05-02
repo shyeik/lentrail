@@ -99,7 +99,7 @@ export default function AddTransactionModal({
   const mutation = useMutation({
     mutationFn: () =>
       axios.post(
-        `${BACKEND_URL}/api/transactions`,
+        `${BACKEND_URL}api/transactions`,
         {
           ...form,
           clientId,

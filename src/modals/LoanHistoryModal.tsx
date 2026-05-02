@@ -44,7 +44,7 @@ export default function LoanHistoryModal({
     queryKey: ["transactions", client?._id],
     queryFn: async () => {
       const res = await axios.get(
-        `${BACKEND_URL}/api/transactions/${client._id}`,
+        `${BACKEND_URL}api/transactions/${client._id}`,
         { headers: { Authorization: `Bearer ${token}` } },
       );
 

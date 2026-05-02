@@ -94,7 +94,7 @@ export default function AddClientModal({
 
   const mutation = useMutation({
     mutationFn: async (payload: ClientForm) => {
-      return axios.post(`${BACKEND_URL}/api/clients`, payload, {
+      return axios.post(`${BACKEND_URL}api/clients`, payload, {
         headers: { Authorization: `Bearer ${token}` },
       });
     },

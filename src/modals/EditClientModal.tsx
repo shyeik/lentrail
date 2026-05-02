@@ -76,7 +76,7 @@ export default function EditClientModal({
 
   const mutation = useMutation({
     mutationFn: async () =>
-      axios.put(`${BACKEND_URL}/api/clients/${client._id}`, form, {
+      axios.put(`${BACKEND_URL}api/clients/${client._id}`, form, {
         headers: { Authorization: `Bearer ${token}` },
       }),
     onSuccess: () => {

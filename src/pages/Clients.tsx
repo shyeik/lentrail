@@ -56,7 +56,7 @@ export default function ClientsPage() {
   const token = localStorage.getItem("token");
 
   const fetchClients = async (): Promise<Client[]> => {
-    const res = await axios.get(`${BACKEND_URL}/api/clients`, {
+    const res = await axios.get(`${BACKEND_URL}api/clients`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     return res.data;
@@ -94,7 +94,7 @@ export default function ClientsPage() {
 
   const deleteMutation = useMutation({
     mutationFn: (id: string) =>
-      axios.delete(`${BACKEND_URL}/api/clients/${id}`, {
+      axios.delete(`${BACKEND_URL}api/clients/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       }),
     onSuccess: () => {

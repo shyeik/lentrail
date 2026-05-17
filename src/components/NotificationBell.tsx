@@ -34,7 +34,7 @@ export default function NotificationBell() {
         { headers: { Authorization: `Bearer ${token}` } },
       );
 
-      const res = await axios.get(`${BACKEND_URL}api/notifications`, {
+      const res = await axios.get(`${BACKEND_URL}/api/notifications`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -48,7 +48,7 @@ export default function NotificationBell() {
   const markAllRead = useMutation({
     mutationFn: async () => {
       await axios.patch(
-        `${BACKEND_URL}api/notifications/mark/all-read`,
+        `${BACKEND_URL}/api/notifications/mark/all-read`,
         {},
         { headers: { Authorization: `Bearer ${token}` } },
       );

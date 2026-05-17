@@ -94,7 +94,7 @@ export default function ClientsPage() {
 
   const deleteMutation = useMutation({
     mutationFn: (id: string) =>
-      axios.delete(`${BACKEND_URL}api/clients/${id}`, {
+      axios.delete(`${BACKEND_URL}/api/clients/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       }),
     onSuccess: () => {

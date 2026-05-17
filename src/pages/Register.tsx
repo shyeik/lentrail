@@ -17,20 +17,31 @@ export default function Register() {
   const [success, setSuccess] = useState("");
 
   const handleRegister = async () => {
-    if (!username || !password || !confirmPassword) {
+    const cleanUsername = username.trim();
+    const cleanPassword = password.trim();
+    const cleanConfirmPassword = confirmPassword.trim();
+
+    if (!cleanUsername || !cleanPassword || !cleanConfirmPassword) {
       setError("Please complete all fields.");
       return;
     }
 
-    if (password !== confirmPassword) {
+    if (cleanPassword !== cleanConfirmPassword) {
       setError("Passwords do not match.");
       return;
     }
 
-    if (password.length < 8) {
+    if (cleanPassword.length < 8) {
       setError("Password must be at least 8 characters.");
       return;
     }
+
+    if (!BACKEND_URL) {
+      setError("Backend URL is missing. Check VITE_BACKEND_URL.");
+      return;
+    }
+
+    if (loading) return;
 
     setLoading(true);
     setError("");
@@ -38,19 +49,24 @@ export default function Register() {
 
     try {
       await axios.post(`${BACKEND_URL}/api/register`, {
-        username,
-        password,
+        username: cleanUsername,
+        password: cleanPassword,
       });
 
       setSuccess("Account created successfully. Redirecting to login...");
 
       setTimeout(() => {
-        navigate("/");
-      }, 1200);
-    } catch (err: any) {
-      setError(
-        err.response?.data?.message || "Registration failed. Please try again.",
-      );
+        navigate("/", { replace: true });
+      }, 1000);
+    } catch (err) {
+      if (axios.isAxiosError(err)) {
+        setError(
+          err.response?.data?.message ||
+            "Registration failed. Please try again.",
+        );
+      } else {
+        setError("Something went wrong. Please try again.");
+      }
     } finally {
       setLoading(false);
     }

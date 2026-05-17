@@ -20,23 +20,46 @@ export default function Login() {
   }, []);
 
   const handleLogin = async () => {
-    if (!username || !password) {
+    const cleanUsername = username.trim();
+    const cleanPassword = password.trim();
+
+    if (!cleanUsername || !cleanPassword) {
       setError("Please enter your credentials.");
       return;
     }
+
+    if (!BACKEND_URL) {
+      setError("Backend URL is missing. Check VITE_BACKEND_URL.");
+      return;
+    }
+
+    if (loading) return;
+
     setLoading(true);
     setError("");
+
     try {
-      const res = await axios.post(`${BACKEND_URL}/api/login`, {
-        username,
-        password,
+      const { data } = await axios.post(`${BACKEND_URL}/api/login`, {
+        username: cleanUsername,
+        password: cleanPassword,
       });
-      localStorage.setItem("token", res.data.token);
-      navigate("/dashboard");
-    } catch (err: any) {
-      setError(
-        err.response?.data?.message || "Invalid credentials. Please try again.",
-      );
+
+      localStorage.setItem("token", data.token);
+
+      if (data.user) {
+        localStorage.setItem("user", JSON.stringify(data.user));
+      }
+
+      navigate("/dashboard", { replace: true });
+    } catch (err) {
+      if (axios.isAxiosError(err)) {
+        setError(
+          err.response?.data?.message ||
+            "Invalid credentials. Please try again.",
+        );
+      } else {
+        setError("Something went wrong. Please try again.");
+      }
     } finally {
       setLoading(false);
     }

@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-const API = import.meta.env.VITE_BACKEND_URL;
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 export default function Login() {
   const [username, setUsername] = useState("");
@@ -27,7 +27,7 @@ export default function Login() {
     setLoading(true);
     setError("");
     try {
-      const res = await axios.post(`${API}/api/login`, {
+      const res = await axios.post(`${BACKEND_URL}/api/login`, {
         username,
         password,
       });

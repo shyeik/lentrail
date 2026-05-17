@@ -3,7 +3,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 
-const API = import.meta.env.VITE_BACKEND_URL;
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 export default function Register() {
   const navigate = useNavigate();
@@ -37,7 +37,7 @@ export default function Register() {
     setSuccess("");
 
     try {
-      await axios.post(`${API}/api/register`, {
+      await axios.post(`${BACKEND_URL}/api/register`, {
         username,
         password,
       });
